@@ -150,17 +150,20 @@ function btnExitTable(div) {
 function addCardTable(tableId) {
   const btnAddCard = document.querySelector(".btn-add-card");
   const ul = document.querySelector(".table-card-list");
+  let countCardTb = 0;
 
   btnAddCard.addEventListener("click", () => {
-    const newCard = createCardTb(tableId);
+    countCardTb++;
+    const newCard = createCardTb(tableId, countCardTb);
     ul.appendChild(newCard);
   });
 }
 
-function createCardTb(tableId) {
+function createCardTb(tableId, countCardTb) {
   const li = document.createElement("li");
   li.classList.add("card-table");
-  li.setAttribute("data-card-Tb-for", tableId);
+  li.setAttribute("data-card-tb-for", tableId);
+  li.setAttribute("data-card-tb-id", countCardTb);
 
   li.innerHTML = `
             <div class="text-card-table">
@@ -192,6 +195,16 @@ function createCardTb(tableId) {
 
   btnControlerCardTb(li);
   return li;
+}
+function btnControlerCardTb(li) {
+  btnremoveCardTb(li);
+}
+
+function btnremoveCardTb(li) {
+  const btnDeleteCardTb = li.querySelector(".btn-card");
+  btnDeleteCardTb.addEventListener("click", () => {
+    li.remove();
+  });
 }
 
 addCardMenu();
