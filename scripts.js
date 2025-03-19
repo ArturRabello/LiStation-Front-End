@@ -63,6 +63,7 @@ function buttonAddTable(cardElement, tableId) {
 
       const tableSection = document.querySelector(`.table-section`);
       tableSection.appendChild(newTable);
+      addCardTable(tableId);
     }
   });
 }
@@ -128,7 +129,40 @@ function createTable(cardId, tableId) {
           <p>Descrição</p>
         </div>
         <ul class="table-card-list">
-          <li class="card-table">
+  
+        </ul>
+        <div class="btn-add-card-container">
+          <button class="btn-add-card">Add</button>
+        </div> `;
+
+  btnExitTable(div);
+
+  return div;
+}
+
+function btnExitTable(div) {
+  const btnExitTable = div.querySelector(".btn-exit-table");
+  btnExitTable.addEventListener("click", () => {
+    div.remove();
+  });
+}
+
+function addCardTable(tableId) {
+  const btnAddCard = document.querySelector(".btn-add-card");
+  const ul = document.querySelector(".table-card-list");
+
+  btnAddCard.addEventListener("click", () => {
+    const newCard = createCardTb(tableId);
+    ul.appendChild(newCard);
+  });
+}
+
+function createCardTb(tableId) {
+  const li = document.createElement("li");
+  li.classList.add("card-table");
+  li.setAttribute("data-card-Tb-for", tableId);
+
+  li.innerHTML = `
             <div class="text-card-table">
               <h3>Titulo</h3>
               <p>
@@ -154,23 +188,10 @@ function createTable(cardId, tableId) {
                   class="icon-card"
                 />
               </button>
-            </div>
-          </li>
-        </ul>
-        <div class="btn-add-card-container">
-          <button class="btn-add-card">Add</button>
-        </div> `;
+            </div>`;
 
-  btnExitTable(div);
-
-  return div;
-}
-
-function btnExitTable(div) {
-  const btnExitTable = div.querySelector(".btn-exit-table");
-  btnExitTable.addEventListener("click", () => {
-    div.remove();
-  });
+  btnControlerCardTb(li);
+  return li;
 }
 
 addCardMenu();
