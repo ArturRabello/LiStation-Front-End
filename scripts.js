@@ -53,17 +53,15 @@ function setupCardControls(cardElement, cardId) {
 function buttonAddTable(cardElement, tableId) {
   const btnAddTable = document.querySelector(".btn-add-table");
   const cardId = cardElement.getAttribute("cards-data-id");
-  const btnId = btnAddTable.getAttribute("cards-btn-data-id");
-
+  
   btnAddTable.addEventListener("click", () => {
     const btnId = btnAddTable.getAttribute("cards-btn-data-id");
     if (btnId == cardId) {
       tableId++;
       const newTable = createTable(cardId, tableId);
-
       const tableSection = document.querySelector(`.table-section`);
       tableSection.appendChild(newTable);
-      addCardTable(tableId);
+      addCardTable(newTable);
     }
   });
 }
@@ -132,7 +130,7 @@ function createTable(cardId, tableId) {
   
         </ul>
         <div class="btn-add-card-container">
-          <button class="btn-add-card">Add</button>
+          <button class="btn-add-card" btn-add-data-id="${tableId}">Add</button>
         </div> `;
 
   btnExitTable(div);
@@ -147,15 +145,16 @@ function btnExitTable(div) {
   });
 }
 
-function addCardTable(tableId) {
-  const btnAddCard = document.querySelector(".btn-add-card");
-  const ul = document.querySelector(".table-card-list");
+function addCardTable(tableSection) {
+  const btnAddCard = tableSection.querySelector(".btn-add-card");
+  const ul = tableSection.querySelector(".table-card-list");
+  const tableId = tableSection.getAttribute("data-table-id");
   let countCardTb = 0;
 
   btnAddCard.addEventListener("click", () => {
-    countCardTb++;
-    const newCard = createCardTb(tableId, countCardTb);
-    ul.appendChild(newCard);
+      countCardTb++;
+      const newCard = createCardTb(tableId, countCardTb);
+      ul.appendChild(newCard);
   });
 }
 
@@ -174,17 +173,17 @@ function createCardTb(tableId, countCardTb) {
               </p>
             </div>
             <div class="btn-card-tb">
-              <button class="btn-card">
+              <button class="btn-card" id="btn-card-delete">
                 <img
                   src="./assets/botao-apagar.png"
                   alt="delete"
                   class="icon-card"
                 />
               </button>
-              <button class="btn-card">
+              <button class="btn-card" id="btn-card-edit">
                 <img src="./assets/pencil.png" alt="pencil" class="icon-card" />
               </button>
-              <button class="btn-card">
+              <button class="btn-card"  id="btn-card-view">
                 <img
                   src="./assets/clipboard.png"
                   alt="clipboard"
@@ -197,14 +196,101 @@ function createCardTb(tableId, countCardTb) {
   return li;
 }
 function btnControlerCardTb(li) {
-  btnremoveCardTb(li);
+  btnRemoveCardTb(li);
+  btnEditarCardTb(li);
 }
 
-function btnremoveCardTb(li) {
-  const btnDeleteCardTb = li.querySelector(".btn-card");
+function btnRemoveCardTb(li) {
+  const btnDeleteCardTb = li.querySelector("#btn-card-delete");
   btnDeleteCardTb.addEventListener("click", () => {
     li.remove();
   });
+}
+
+function btnEditarCardTb(li) {
+  btnPencil(li);
+}
+
+function btnPencil(li) {
+  const btnPencil = li.querySelector("#btn-card-edit");
+  const btnScreeView = li.querySelector("#btn-card-view");
+
+
+  btnPencil.addEventListener("click", () => {
+    showScreen(createScreenEdit,screenEditFormsController);
+  });
+
+  btnScreeView.addEventListener("click", () => {
+   showScreen(createScreenView,screenEditFormsController);
+  });
+}
+
+function showScreen(createScreenFunction,controllerFuncion){
+  const tableSection = document.querySelector(".table-section");
+  const tableContainer = document.querySelectorAll(".table");
+  const newScrean = createScreenFunction();
+    tableContainer.forEach((table) => table.style.display = "none");
+    tableSection.appendChild(newScrean);
+    controllerFuncion(newScrean);
+}
+
+function screenEditFormsController(newScrean){
+  btnEditForm(newScrean);
+}
+
+function btnEditForm(newScrean){
+  const tableContainer = document.querySelectorAll(".table");
+  const btnEditForm = document.querySelector(".form-btn");
+  const form = newScrean.querySelector(".form-container");
+  btnEditForm.addEventListener("Click", () => {
+    tableContainer.forEach((table) => table.style.display = "grid");
+    form.remove();
+
+  })
+    
+}
+
+function createScreenEdit() {
+  const section = document.createElement("section");
+  section.classList.add("form-section");
+  section.innerHTML = `<form class="form-object">
+        <h1 class="form-title">Edit Card</h1>
+        <div class="form-input-container-edit">
+          <input class="form-input-edit" type="text" placeholder="Title:" />
+          <input class="form-input-edit" type="text" placeholder="ImgUrl:" />
+        </div>
+        <textarea
+          class="form-textarea-content"
+          type="text"
+          placeholder="Description:"
+        ></textarea>
+        <button class="form-btn">Edit</button>
+      </form>`;
+
+  return section;
+}
+
+function createScreenView()
+{
+  const section = document.createElement("section");
+  section.classList.add("form-section");
+  section.innerHTML = `<form class="form-object">
+        <div class="form-conteudos-container">
+          <h1 class="form-title">Titulodawdawd´paw</h1>
+          <img
+            src={link.url}
+            alt={link.title}
+            class="form-img-edit">
+        </div>
+        <div
+          class="form-textarea-content"
+          type="text"
+          placeholder="Description:"
+        >dwadwadawdwadawdwadwadwadwadawdawdwadwaawdwadawdwadawdwadwadwadwadawdwaddawdawdwadwa</div>
+        <button class="form-btn">Edit</button>
+      </form>`;
+
+  return section;
 }
 
 addCardMenu();

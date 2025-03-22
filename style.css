@@ -6,21 +6,28 @@
 
 /* ===== GLOBAL/RESET ===== */
 
-body {
-  display: grid;
-  grid-template-columns: 220px 1fr 200px;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  background-color: #d9d9d9;
-}
 
 /* ===== PRINCIPAL SCREEN ===== */
+body{
+  height: 100%;
+  margin: 0;
+  background-color: #d9d9d9;
+  height: 100vh;
+}
+
+
+.componente-menu{
+  display: grid;
+  grid-template-columns: 220px 1fr 200px;
+}
 
 /* ===== SIDE BAR ===== */
 
 .sidebar {
   display: grid;
+  width: 220px;
+  height: 100vh;
+  grid-template-columns: 1fr;
   grid-template-rows: 60px 1fr 90px;
   overflow: auto;
   background-color: rgb(255, 255, 255);
@@ -48,17 +55,20 @@ body {
 .menu-card-list {
   padding: 5px;
   margin: 3px;
+  overflow-y: auto;
 }
 
 .menu-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   margin-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
   border: 1px solid #000000;
   border-radius: 7px;
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   font-family: "Poppins", sans-serif;
 }
@@ -108,13 +118,13 @@ body {
 .table-section {
   display: flex;
   align-self: center;
-  height: 930px;
   overflow-y: auto;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 40px;
   margin-left: 40px;
+  max-width: 100%;
 }
 
 .table {
@@ -122,7 +132,6 @@ body {
   grid-template-rows: 30px 80px 470px 70px;
   gap: 10px;
   min-width: 320px;
-  height: 700px;
   background-color: white;
   border-radius: 7px;
 }
@@ -265,6 +274,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .btn-add-table {
@@ -287,33 +297,41 @@ body {
 
 .form-section {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-
-  width: 100vw;
+  align-items: center;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /
+
 }
 
-.form-object,
-.form-object-editCardTb {
+
+.form-object{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
 
-  height: 350px;
-  width: 500px;
+  height: 550px;
+  width: 800px;
 
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.form-object-editCardTb {
-  height: 550px;
-  width: 800px;
+.form-conteudos-container{
+  display: grid;
+  grid-template-columns: 350px 300px ;
+  gap: 30px;
 }
+
 
 .form-title {
   font-family: "Gasoek One";
@@ -328,7 +346,7 @@ body {
     1px 1px 3px #000;
 }
 
-.form-input-container {
+.form-ineput-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
@@ -357,7 +375,7 @@ body {
   width: 300px;
 }
 
-.form-textarea-content {
+.form-textarea-content{
   height: 160px;
   width: 605px;
 
@@ -366,6 +384,8 @@ body {
   overflow-y: auto;
   white-space: pre-wrap;
   font-family: Arial, Helvetica, sans-serif;
+  word-wrap: break-word;
+  
 }
 
 .form-btn-container {
