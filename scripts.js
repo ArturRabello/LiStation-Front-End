@@ -58,12 +58,29 @@ function buttonAddTable(cardElement, tableId) {
     const btnId = btnAddTable.getAttribute("cards-btn-data-id");
     if (btnId == cardId) {
       tableId++;
+      showScreen(formCreateTable, screenEditFormsController);
       const newTable = createTable(cardId, tableId);
       const tableSection = document.querySelector(`.table-section`);
       tableSection.appendChild(newTable);
       addCardTable(newTable);
     }
   });
+}
+
+
+function formCreateTable() {
+  const section = document.createElement("section");
+  section.classList.add("form-section");
+  section.innerHTML = `<form class="form-object">
+        <h1 class="form-title">Create Table</h1>
+        <div class="form-input-container-edit">
+          <input class="form-input-edit" type="text" placeholder="Title:" />
+          <input class="form-input-edit" type="text" placeholder="Description:" />
+        </div>
+        <button class="form-btn">Edit</button>
+      </form>`;
+
+  return section;
 }
 function removeTables(cardElement) {
   const tables = document.querySelectorAll("[data-tables-for]");
@@ -245,9 +262,7 @@ function btnEditForm(newScrean){
   btnEditForm.addEventListener("Click", () => {
     tableContainer.forEach((table) => table.style.display = "grid");
     form.remove();
-
   })
-    
 }
 
 function createScreenEdit() {
