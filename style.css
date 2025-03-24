@@ -33,11 +33,21 @@ body{
   background-color: rgb(255, 255, 255);
 }
 
-.container-login {
+.menu-title {
   display: flex;
-  flex: column;
   align-items: center;
+  justify-content: center;
+
+  font-family: "Gasoek One";
+  font-weight: 300;
+  font-size: 32px;
   gap: 10px;
+  margin: 0%;
+  color: #d9d9d9;
+  text-shadow: -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000,
+    1px 1px 3px #000;
+    
+  
   font-family: "Poppins", sans-serif;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -312,7 +322,8 @@ body{
 }
 
 
-.form-object{
+.form-object,
+.form-login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -324,6 +335,11 @@ body{
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.form-login {
+  height: 350px;
+  width: 500px;
 }
 
 .form-conteudos-container{
@@ -413,7 +429,9 @@ body{
 .btn-delete-card-menu:active,
 .btn-card:active,
 .btn-add-card:active,
-.btn-add-table:active {
+.btn-add-table:active,
+.menu-title:active,
+.menu-card:active  {
   transform: translateY(1px); /*animação de click */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -421,21 +439,20 @@ body{
 .form-input:focus,
 .form-input:hover,
 .card-table:hover,
-.card-table:hover,
 .btn-card:hover,
 .btn-add-card:hover,
-.btn-add-table:hover {
+.btn-add-table:hover{
   background-color: #d9d9d9e5;
 }
 
 .card-table:hover,
 .menu-card:hover,
+.btn-delete-card-menu:hover,
 .form-textarea-content,
-.btn-exit-table:hover {
+.btn-exit-table:hover,
+.add-card:hover,
+.menu-title:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 2);
 }
 
-.menu-card :hover {
-  transform: translateY(1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 2);
-}
+

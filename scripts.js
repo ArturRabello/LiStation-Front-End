@@ -1,3 +1,4 @@
+
 function addCardMenu() {
   const buttonAdd = document.querySelector(".add-card");
   const ul = document.querySelector(".menu-card-list");
@@ -5,7 +6,7 @@ function addCardMenu() {
 
   buttonAdd.addEventListener("click", () => {
     cardCounter++;
-
+    showScreen(formCreateCardMenu, screenEditFormsController, 12);
     const newCard = createCard(cardCounter);
     ul.appendChild(newCard);
     setupCardControls(newCard, cardCounter);
@@ -39,7 +40,7 @@ function addIdButtonAddTable(id) {
   btnAddTable.setAttribute("cards-btn-data-id", id);
 }
 
-function setupCardControls(cardElement, cardId) {
+function setupCardControls(cardElement) {
   const btn_delete = cardElement.querySelector(".btn-delete-card-menu");
   let countTable = 0;
 
@@ -58,7 +59,7 @@ function buttonAddTable(cardElement, tableId) {
     const btnId = btnAddTable.getAttribute("cards-btn-data-id");
     if (btnId == cardId) {
       tableId++;
-      showScreen(formCreateTable, screenEditFormsController);
+      showScreen(formCreateTable, screenEditFormsController, 26);
       const newTable = createTable(cardId, tableId);
       const tableSection = document.querySelector(`.table-section`);
       tableSection.appendChild(newTable);
@@ -242,27 +243,48 @@ function btnPencil(li) {
   });
 }
 
-function showScreen(createScreenFunction,controllerFuncion){
+function showScreen(createScreenFunction,controllerFuncion, length){
   const tableSection = document.querySelector(".table-section");
-  const tableContainer = document.querySelectorAll(".table");
+
   const newScrean = createScreenFunction();
-    tableContainer.forEach((table) => table.style.display = "none");
     tableSection.appendChild(newScrean);
-    controllerFuncion(newScrean);
+    
+    controllerFuncion(newScrean, length);
 }
 
-function screenEditFormsController(newScrean){
-  btnEditForm(newScrean);
+function screenEditFormsController(newScreen, length){
+formSubmit(newScreen, length);
+
 }
 
-function btnEditForm(newScrean){
-  const tableContainer = document.querySelectorAll(".table");
-  const btnEditForm = document.querySelector(".form-btn");
-  const form = newScrean.querySelector(".form-container");
-  btnEditForm.addEventListener("Click", () => {
-    tableContainer.forEach((table) => table.style.display = "grid");
-    form.remove();
+function sendingToForm(form){
+  const formObject = form.querySelector(".form-object")
+    
+  if(formObject){
+    formObject.addEventListener("submit", function(event){
+      event.preventDefault();
+    })
+  }else{
+    form.querySelector(".form-login").addEventListener("submit", function(event){
+    event.preventDefault();
   })
+  }
+  
+}
+
+function formSubmit(newScreen, length){
+  const btnFormSubmit= document.querySelector(".form-btn");
+  sendingToForm(newScreen);
+
+  btnFormSubmit.addEventListener("click", (e) => {
+  if(length == null){
+      newScreen.remove();
+    }else{
+    if(maxLength(newScreen, length)){
+        newScreen.remove();
+      }
+    }
+  });
 }
 
 function createScreenEdit() {
@@ -302,10 +324,50 @@ function createScreenView()
           type="text"
           placeholder="Description:"
         >dwadwadawdwadawdwadwadwadwadawdawdwadwaawdwadawdwadawdwadwadwadwadawdwaddawdawdwadwa</div>
-        <button class="form-btn">Edit</button>
+        <button class="form-btn">Sair</button>
       </form>`;
 
   return section;
+}
+
+function formCreateCardMenu(){
+  const section = document.createElement("section");
+  section.classList.add("form-section");
+  section.innerHTML = `<section class="form-section">
+      <form class="form-object">
+        <h1 class="form-title">Create Card</h1>
+        <div class="form-input-container-edit">
+          <input class="form-input-edit" type="text" placeholder="Title:" />
+          <input class="form-input-edit" type="text" placeholder="Description:" />
+        </div>
+        <button class="form-btn">Create</button>
+      </form>
+    </section>`;
+
+  return section; 
+}
+
+function formLogin(){
+  const section = document.createElement("section");
+  section.classList.add("form-section");
+  section.innerHTML = `<form class="form-login">
+        <h1 class="form-title">Login</h1>
+          <input class="form-input-edit" type="text" placeholder="Name:" />
+        <button class="form-btn">Create</button>
+      </form>`
+
+  return section
+}
+
+function maxLength(newScreen, length) {
+  const input = newScreen.querySelector(".form-input-edit");
+  
+  if(input.value.length > length) { 
+    alert(`O limite de caracter é ${length}`);
+    input.focus();
+    return false
+  }
+  return true
 }
 
 addCardMenu();
