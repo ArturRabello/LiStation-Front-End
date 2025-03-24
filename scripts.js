@@ -72,9 +72,9 @@ function buttonAddTable(cardElement, tableId) {
 function formCreateTable() {
   const section = document.createElement("section");
   section.classList.add("form-section");
-  section.innerHTML = `<form class="form-object">
+  section.innerHTML = `<form class="form-object-add">
         <h1 class="form-title">Create Table</h1>
-        <div class="form-input-container-edit">
+        <div class="form-input-container-add">
           <input class="form-input-edit" type="text" placeholder="Title:" />
           <input class="form-input-edit" type="text" placeholder="Description:" />
         </div>
@@ -265,7 +265,7 @@ function sendingToForm(form){
       event.preventDefault();
     })
   }else{
-    form.querySelector(".form-login").addEventListener("submit", function(event){
+    form.querySelector(".form-object-add").addEventListener("submit", function(event){
     event.preventDefault();
   })
   }
@@ -292,7 +292,7 @@ function createScreenEdit() {
   section.classList.add("form-section");
   section.innerHTML = `<form class="form-object">
         <h1 class="form-title">Edit Card</h1>
-        <div class="form-input-container-edit">
+        <div class="form-input-container">
           <input class="form-input-edit" type="text" placeholder="Title:" />
           <input class="form-input-edit" type="text" placeholder="ImgUrl:" />
         </div>
@@ -334,9 +334,9 @@ function formCreateCardMenu(){
   const section = document.createElement("section");
   section.classList.add("form-section");
   section.innerHTML = `<section class="form-section">
-      <form class="form-object">
+      <form class="form-object-add">
         <h1 class="form-title">Create Card</h1>
-        <div class="form-input-container-edit">
+        <div class="form-input-container-add">
           <input class="form-input-edit" type="text" placeholder="Title:" />
           <input class="form-input-edit" type="text" placeholder="Description:" />
         </div>
